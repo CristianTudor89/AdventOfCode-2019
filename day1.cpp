@@ -21,7 +21,6 @@ void PartOne()
   ifstream in("in.txt");
   ofstream out("out.txt");
 
-  vector<int> fuels;
   int sum = 0;
 
   while (!in.eof())
@@ -40,7 +39,6 @@ void PartTwo()
   ifstream in("in.txt");
   ofstream out("out.txt");
 
-  vector<int> fuels;
   int sum = 0;
 
   while (!in.eof())
