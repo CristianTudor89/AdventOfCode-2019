@@ -146,13 +146,13 @@ void RunProgram(ofstream& out, vector<long long>& v, vector<vector<int>>& matrix
           if (500 + x < minX)
             minX = 500 + x;
 
-          if (5000 + x > maxX)
+          if (500 + x > maxX)
             maxX = 500 + x;
 
-          if (5000 + y < minY)
+          if (500 + y < minY)
             minY = 500 + y;
 
-          if (5000 + y > maxY)
+          if (500 + y > maxY)
             maxY = 500 + y;
 
           // Part 1
