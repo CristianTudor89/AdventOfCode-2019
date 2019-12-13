@@ -10,10 +10,9 @@
 using namespace std;
 
 long long relativeBase = 0;
-int blockCount = 0;
-int minX = 10000, minY = 10000, maxX = 0, maxY = 0;
+int blockCount = 0, minX = 1000, minY = 1000, maxX = 0, maxY = 0;
 
-void ReadOpcode(int instruction, int & opcode, int & mode1, int & mode2, int & mode3)
+void ReadOpcode(int instruction, int& opcode, int& mode1, int& mode2, int& mode3)
 {
   if (instruction == 99)
     opcode = instruction;
@@ -30,7 +29,7 @@ void ReadOpcode(int instruction, int & opcode, int & mode1, int & mode2, int & m
   mode3 = instruction % 10;
 }
 
-long long GetVal(const vector<long long> & v, long long pos, int mode)
+long long GetVal(const vector<long long>& v, long long pos, int mode)
 {
   if (mode == 0)
     return v[pos];
@@ -44,7 +43,7 @@ long long GetVal(const vector<long long> & v, long long pos, int mode)
   return 0;
 }
 
-void SetVal(vector<long long> & v, long long pos, int mode, long long val)
+void SetVal(vector<long long>& v, long long pos, int mode, long long val)
 {
   assert(mode != 1);
 
@@ -58,14 +57,14 @@ int GetJoystickInput(int paddlePosY, int ballPosY)
 {
   if (paddlePosY < ballPosY)
     return 1;
-  
+
   if (paddlePosY == ballPosY)
     return 0;
 
   return -1;
 }
 
-void RunProgram(ofstream & out, vector<long long> & v, vector<vector<int>> & matrix)
+void RunProgram(ofstream& out, vector<long long>& v, vector<vector<int>>& matrix)
 {
   int i = 0, x = 0, y = 0, tileId = 0, count = 0, paddleY = 0, ballY = 0;
   bool getYPos = true, getXPos = false, getTileId = false;
@@ -103,7 +102,7 @@ void RunProgram(ofstream & out, vector<long long> & v, vector<vector<int>> & mat
       int joystickInput = GetJoystickInput(paddleY, ballY);
 
       SetVal(v, v[i + 1], mode1, joystickInput);
-      
+
       i += 2;
     }
     else if (opcode == 4)
@@ -142,19 +141,19 @@ void RunProgram(ofstream & out, vector<long long> & v, vector<vector<int>> & mat
           else if (tileId == 4)
             ballY = y;
 
-          matrix[5000 + x][5000 + y] = tileId;
+          matrix[500 + x][500 + y] = tileId;
 
-          if (5000 + x < minX)
-            minX = 5000 + x;
+          if (500 + x < minX)
+            minX = 500 + x;
 
           if (5000 + x > maxX)
-            maxX = 5000 + x;
+            maxX = 500 + x;
 
           if (5000 + y < minY)
-            minY = 5000 + y;
+            minY = 500 + y;
 
           if (5000 + y > maxY)
-            maxY = 5000 + y;
+            maxY = 500 + y;
 
           // Part 1
           if (tileId == 2)
@@ -236,43 +235,9 @@ int main()
 
   v.resize(1000000);
 
-  vector<vector<int>> matrix(10000, vector<int>(10000, 0));
+  vector<vector<int>> matrix(1000, vector<int>(1000, 0));
 
   RunProgram(out, v, matrix);
-
-  for (int i = minX; i <= maxX; i++)
-  {
-    for (int j = minY; j <= maxY; j++)
-    {
-      switch (matrix[i][j])
-      {
-      case 0:
-        out << " ";
-        break;
-
-      case 1:
-        out << "w";
-        break;
-
-      case 2:
-        out << "b";
-        break;
-
-      case 3:
-        out << "_";
-        break;
-
-      case 4:
-        out << "*";
-        break;
-
-      default:
-        break;
-      }
-    }
-
-    out << endl;
-  }
 
   return 0;
 }
