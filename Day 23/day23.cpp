@@ -282,8 +282,6 @@ int main()
   
   nics.resize(50, { v });
 
-  // 16250
-
   while (true)
   {
     for (int i = 0; i < nics.size(); i++)
